@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://cdh1rad803gqj"]
+[gd_scene load_steps=11 format=4 uid="uid://cdh1rad803gqj"]
 
 [ext_resource type="PackedScene" uid="uid://dpes4e3b1cwwb" path="res://scenes/player.tscn" id="1_i82tj"]
 [ext_resource type="Texture2D" uid="uid://cbuaijscp0dii" path="res://assets/sprites/Terrain/Terrain (16x16).png" id="2_1oluh"]
 [ext_resource type="PackedScene" uid="uid://dj36rvqsy8b77" path="res://scenes/portal.tscn" id="3_t374u"]
 [ext_resource type="Script" path="res://scripts/portal.gd" id="4_m42ha"]
+[ext_resource type="Script" path="res://scenes/box_test.gd" id="5_157h2"]
+[ext_resource type="Texture2D" uid="uid://brhvqem3cqvix" path="res://assets/sprites/Items/Boxes/Box1/Idle.png" id="6_vq2nv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hj0m0"]
 
@@ -302,10 +304,13 @@ texture = ExtResource("2_1oluh")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ayr7v")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mb2w4"]
+
 [node name="Game" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [100.0, 150.0, 200.0]
 
 [node name="Player" parent="." instance=ExtResource("1_i82tj")]
-position = Vector2(309, 194)
+position = Vector2(361, 151)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(315, 272)
@@ -315,31 +320,82 @@ position = Vector2(-4, 80)
 shape = SubResource("WorldBoundaryShape2D_hj0m0")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAXAA4AAAAHAAAAAAAXAA8AAAAHAAEAAAAXABAAAAAHAAIAAAAYAA4AAAAIAAAAAAAYAA8AAAAIAAEAAAAYABAAAAAIAAIAAAAWAAgAAAARAAAAAAAXAAgAAAASAAAAAAAYAAgAAAATAAAAAAAcAAYAAAARAAAAAAAdAAYAAAASAAAAAAAeAAYAAAATAAAAAAAeAAsAAAATAAAAAAAcAAsAAAARAAAAAAAdAAsAAAASAAAAAAAdABMAAAAGAAAAAAAeABMAAAAHAAAAAAAfABMAAAAIAAAAAAAaABAAAAAGAAAAAAAbABAAAAAHAAAAAAAcABAAAAAIAAAAAAADAAAAAAABAAIAAAAEAAAAAAABAAIAAAAFAAAAAAABAAIAAAAGAAAAAAABAAIAAAAHAAAAAAABAAIAAAAIAAAAAAABAAIAAAAJAAAAAAABAAIAAAAKAAAAAAABAAIAAAALAAAAAAABAAIAAAAMAAAAAAABAAIAAAANAAAAAAABAAIAAAAOAAAAAAABAAIAAAAPAAAAAAABAAIAAAAQAAAAAAABAAIAAAARAAAAAAABAAIAAAASAAAAAAABAAIAAAATAAAAAAABAAIAAAAUAAAAAAABAAIAAAAVAAAAAAABAAIAAAAWAAAAAAABAAIAAAAXAAAAAAABAAIAAAAYAAAAAAABAAIAAAAZAAAAAAABAAIAAAAaAAAAAAABAAIAAAAbAAAAAAABAAIAAAAcAAAAAAABAAIAAAAdAAAAAAABAAIAAAAeAAAAAAABAAIAAAAfAAAAAAABAAIAAAAgAAAAAAABAAIAAAAhAAAAAAABAAIAAAAiAAAAAAABAAIAAAAjAAAAAAABAAIAAAAkAAAAAAABAAIAAAAlAAAAAAABAAIAAAAmAAAAAAABAAIAAAAnAAAAAAABAAIAAAAoAAAAAAABAAIAAAApAAAAAAABAAIAAAAqAAAAAAABAAIAAAACAAAAAAABAAIAAAABAAAAAAABAAIAAAAAAAAAAAABAAIAAAD//wAAAAABAAIAAAD+/wAAAAABAAIAAAD9/wAAAAABAAIAAAD8/wAAAAABAAIAAAArAAAAAAABAAIAAAAsAAAAAAABAAIAAAAtAAAAAAABAAIAAAAuAAAAAAABAAIAAAAvAAAAAAABAAIAAAAwAAAAAAABAAIAAAASAAMAAAAGAAAAAAATAAMAAAAHAAAAAAAUAAMAAAAIAAAAAAAYAAQAAAAGAAAAAAAZAAQAAAAHAAAAAAAaAAQAAAAIAAAAAAASAA4AAAAGAAAAAAATAA4AAAAHAAAAAAAUAA4AAAAHAAAAAAAVAA4AAAAHAAAAAAAVAA8AAAAHAAEAAAAVABAAAAAHAAIAAAAWAA4AAAAHAAAAAAAWAA8AAAAHAAEAAAAWABAAAAAHAAIAAAA=")
+tile_map_data = PackedByteArray("AAAXAA4AAAAHAAAAAAAXAA8AAAAHAAEAAAAXABAAAAAHAAIAAAAYAA4AAAAIAAAAAAAYAA8AAAAIAAEAAAAYABAAAAAIAAIAAAAWAAgAAAARAAAAAAAXAAgAAAASAAAAAAAYAAgAAAATAAAAAAAcAAYAAAARAAAAAAAdAAYAAAASAAAAAAAeAAYAAAATAAAAAAAeAAsAAAATAAAAAAAcAAsAAAARAAAAAAAdAAsAAAASAAAAAAAdABMAAAAGAAAAAAAeABMAAAAHAAAAAAAfABMAAAAIAAAAAAAaABAAAAAGAAAAAAAbABAAAAAHAAAAAAAcABAAAAAIAAAAAAADAAAAAAABAAIAAAAEAAAAAAABAAIAAAAFAAAAAAABAAIAAAAGAAAAAAABAAIAAAAHAAAAAAABAAIAAAAIAAAAAAABAAIAAAAJAAAAAAABAAIAAAAKAAAAAAABAAIAAAALAAAAAAABAAIAAAAMAAAAAAABAAIAAAANAAAAAAABAAIAAAAOAAAAAAABAAIAAAAPAAAAAAABAAIAAAAQAAAAAAABAAIAAAARAAAAAAABAAIAAAASAAAAAAABAAIAAAATAAAAAAABAAIAAAAUAAAAAAABAAIAAAAVAAAAAAABAAIAAAAWAAAAAAABAAIAAAAXAAAAAAABAAIAAAAYAAAAAAABAAIAAAAZAAAAAAABAAIAAAAaAAAAAAABAAIAAAAbAAAAAAABAAIAAAAcAAAAAAABAAIAAAAdAAAAAAABAAIAAAAeAAAAAAABAAIAAAAfAAAAAAABAAIAAAAgAAAAAAABAAIAAAAhAAAAAAABAAIAAAAiAAAAAAABAAIAAAAjAAAAAAABAAIAAAAkAAAAAAABAAIAAAAlAAAAAAABAAIAAAAmAAAAAAABAAIAAAAnAAAAAAABAAIAAAAoAAAAAAABAAIAAAApAAAAAAABAAIAAAAqAAAAAAABAAIAAAACAAAAAAABAAIAAAABAAAAAAABAAIAAAAAAAAAAAABAAIAAAD//wAAAAABAAIAAAD+/wAAAAABAAIAAAD9/wAAAAABAAIAAAD8/wAAAAABAAIAAAArAAAAAAABAAIAAAAsAAAAAAABAAIAAAAtAAAAAAABAAIAAAAuAAAAAAABAAIAAAAvAAAAAAABAAIAAAAwAAAAAAABAAIAAAAYAAQAAAAGAAAAAAAZAAQAAAAHAAAAAAAaAAQAAAAIAAAAAAASAA4AAAAGAAAAAAATAA4AAAAHAAAAAAAUAA4AAAAHAAAAAAAVAA4AAAAHAAAAAAAVAA8AAAAHAAEAAAAVABAAAAAHAAIAAAAWAA4AAAAHAAAAAAAWAA8AAAAHAAEAAAAWABAAAAAHAAIAAAAEAAkAAAAMAAEAAAAEAAgAAAAMAAEAAAAEAAcAAAAMAAEAAAAEAAYAAAAMAAEAAAADAAUAAAAMAAEAAAADAAQAAAAMAAEAAAADAAMAAAAMAAEAAAADAAoAAAAMAAEAAAADAAsAAAAMAAEAAAADAAwAAAAMAAEAAAADAA0AAAAMAAEAAAAEAA4AAAAMAAEAAAAEAA8AAAAMAAEAAAAEABAAAAAMAAEAAAAEABEAAAAMAAEAAAADAAIAAAAMAAEAAAAWAAsAAAAGAAAAAAAXAAsAAAAHAAAAAAAYAAsAAAAIAAAAAAA=")
 tile_set = SubResource("TileSet_q3t74")
 
-[node name="Portal" parent="." instance=ExtResource("3_t374u")]
-position = Vector2(250, 269)
+[node name="PortalBox" parent="." instance=ExtResource("3_t374u")]
+position = Vector2(112, 150)
 script = ExtResource("4_m42ha")
 
-[node name="Portal2" parent="." instance=ExtResource("3_t374u")]
-position = Vector2(250, 69)
+[node name="PortalBox2" parent="." instance=ExtResource("3_t374u")]
+position = Vector2(162, 150)
 script = ExtResource("4_m42ha")
 
-[node name="Portal3" parent="." instance=ExtResource("3_t374u")]
-position = Vector2(176, 123)
+[node name="PortalBox3" parent="." instance=ExtResource("3_t374u")]
+position = Vector2(213, 150)
 script = ExtResource("4_m42ha")
 
-[node name="Portal4" parent="." instance=ExtResource("3_t374u")]
-position = Vector2(176, 194)
+[node name="PortalBox4" parent="." instance=ExtResource("3_t374u")]
+position = Vector2(265, 150)
 script = ExtResource("4_m42ha")
 
-[node name="Portal5" parent="." instance=ExtResource("3_t374u")]
-position = Vector2(371, 176)
-script = ExtResource("4_m42ha")
+[node name="Box" type="CharacterBody2D" parent="."]
+position = Vector2(153, 110)
+script = ExtResource("5_157h2")
 
-[connection signal="body_entered" from="Portal" to="Portal" method="_on_body_entered"]
-[connection signal="body_entered" from="Portal2" to="Portal2" method="_on_body_entered"]
-[connection signal="body_entered" from="Portal3" to="Portal3" method="_on_body_entered"]
-[connection signal="body_entered" from="Portal4" to="Portal4" method="_on_body_entered"]
-[connection signal="body_entered" from="Portal5" to="Portal5" method="_on_body_entered"]
+[node name="Sprite2D" type="Sprite2D" parent="Box"]
+texture = ExtResource("6_vq2nv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box"]
+shape = SubResource("RectangleShape2D_mb2w4")
+
+[node name="BoxImage" type="Sprite2D" parent="."]
+position = Vector2(175, 110)
+texture = ExtResource("6_vq2nv")
+
+[node name="Box4" type="CharacterBody2D" parent="."]
+position = Vector2(103, 130)
+script = ExtResource("5_157h2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Box4"]
+texture = ExtResource("6_vq2nv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box4"]
+shape = SubResource("RectangleShape2D_mb2w4")
+
+[node name="BoxImage4" type="Sprite2D" parent="."]
+position = Vector2(125, 130)
+texture = ExtResource("6_vq2nv")
+
+[node name="Box2" type="CharacterBody2D" parent="."]
+position = Vector2(201, 90)
+script = ExtResource("5_157h2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Box2"]
+texture = ExtResource("6_vq2nv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box2"]
+shape = SubResource("RectangleShape2D_mb2w4")
+
+[node name="BoxImage2" type="Sprite2D" parent="."]
+position = Vector2(223, 90)
+texture = ExtResource("6_vq2nv")
+
+[node name="Box3" type="CharacterBody2D" parent="."]
+position = Vector2(249, 70)
+script = ExtResource("5_157h2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Box3"]
+texture = ExtResource("6_vq2nv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box3"]
+shape = SubResource("RectangleShape2D_mb2w4")
+
+[node name="BoxImage3" type="Sprite2D" parent="."]
+position = Vector2(271, 70)
+texture = ExtResource("6_vq2nv")
+
+[connection signal="body_entered" from="PortalBox" to="PortalBox" method="_on_body_entered"]
+[connection signal="body_entered" from="PortalBox2" to="PortalBox2" method="_on_body_entered"]
+[connection signal="body_entered" from="PortalBox3" to="PortalBox3" method="_on_body_entered"]
+[connection signal="body_entered" from="PortalBox4" to="PortalBox4" method="_on_body_entered"]

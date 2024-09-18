@@ -1,4 +1,6 @@
-res://scenes/player.tscn
 res://scenes/game.tscn
-res://scripts/player.gd
+res://scenes/player.tscn
 res://scenes/portal.tscn
+res://scripts/player.gd
+res://scenes/box_test.gd
+res://scripts/portal.gd

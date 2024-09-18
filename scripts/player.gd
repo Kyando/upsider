@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const SPEED = 120.0
 const JUMP_VELOCITY = -400.0
-const GRAVITY_MULTIPLIER = 1.5
+#const GRAVITY_MULTIPLIER = 1.5
 const MAX_Y_VELOCITY = 500
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -28,7 +28,6 @@ func _process(delta: float) -> void:
 		else:
 			animated_sprite_2d.rotation_degrees = 180
 			animated_sprite_2d.offset = Vector2(0, y_offset * -gravity_scale)
-	print(jump_peak_abs)
 
 func _physics_process(delta: float) -> void:
 	
@@ -51,7 +50,12 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY * gravity_scale
-
+	
+	if should_portal_jump:
+		velocity.y = JUMP_VELOCITY * gravity_scale
+		should_portal_jump = false
+	
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
@@ -61,16 +65,24 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
-	
-func invert_gravity() -> void:
+
+var should_portal_jump = false
+func invert_gravity(y_offset: float) -> void:
+	calculate_peak_height()
 	up_direction *= -1
 	gravity_scale *= -1
 	is_rotating = true
 	jump_peak_abs = 0
 	#gravity_force = abs(position.y - jump_peak_abs)
+	print("Inverted ", position)
+	should_portal_jump = true
 	
 	
 	
-	
+func calculate_peak_height() -> float:
+	var y_0 = position.y + (-pow(velocity.y, 2) / (2 * get_gravity().y))
+	print("peak ", jump_peak_abs)
+	print("calc ", y_0)
+	return y_0
 	
 	
