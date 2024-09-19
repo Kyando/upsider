@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dj36rvqsy8b77"]
+[gd_scene load_steps=4 format=3 uid="uid://dj36rvqsy8b77"]
 
 [ext_resource type="Texture2D" uid="uid://cbuaijscp0dii" path="res://assets/sprites/Terrain/Terrain (16x16).png" id="1_i2q8q"]
+[ext_resource type="Script" path="res://scripts/portal.gd" id="1_ttyp8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v62y7"]
 size = Vector2(48, 6)
 
 [node name="Portal" type="Area2D"]
+script = ExtResource("1_ttyp8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_v62y7")

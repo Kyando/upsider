@@ -1,4 +1,4 @@
+res://scenes/levels/level_001.tscn
 res://scenes/game.tscn
-res://scenes/box_test.gd
-res://scripts/player.gd
 res://scenes/player.tscn
+res://scenes/portal.tscn
