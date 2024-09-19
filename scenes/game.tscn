@@ -310,7 +310,7 @@ sources/0 = SubResource("TileSetAtlasSource_ayr7v")
 metadata/_edit_horizontal_guides_ = [100.0, 150.0, 200.0]
 
 [node name="Player" parent="." instance=ExtResource("1_i82tj")]
-position = Vector2(361, 151)
+position = Vector2(97, 110)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(315, 272)

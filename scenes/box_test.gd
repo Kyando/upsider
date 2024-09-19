@@ -21,29 +21,15 @@ func _process(delta: float) -> void:
 		
 func _physics_process(delta):
 	if should_apply_force:
-		
 		var portal_offset = abs(position.y- portal_pos_y)
 		var distance = abs(peak_pos - portal_pos_y)
-		print("----")
-		print("y_peak ", peak_pos)
-		print("y_pos ", position.y)
-		print("y_portal ", portal_pos_y)
-		print("offset ", portal_offset)
-		print("dist1 ", distance)
 		if gravity_scale == -1:
 			distance = abs(portal_pos_y - peak_pos)
-		print("dist2 ", distance)
 		distance += portal_offset
-		print("dist3 ", distance)
-	
 		y_force = calculate_portal_force(distance)
-		#y_force = 200 
-		print("y_force ", y_force)
 		
 		var p_y = position.y
 		target_peak_pos = position.y - (distance * gravity_scale)
-		print("peak_pos ", peak_pos)
-		print("target_pos ", target_peak_pos)
 		peak_pos = position.y
 		
 		
@@ -51,7 +37,6 @@ func _physics_process(delta):
 			velocity.y = y_force
 		else:
 			velocity.y = -y_force
-		print("y_vel ", velocity.y)
 		should_apply_force = false
 	
 	# Apply gravity to the velocity
@@ -60,11 +45,8 @@ func _physics_process(delta):
 	
 	if target_peak_pos: 
 		var target_pos_dist = abs(abs(position.y) - abs(target_peak_pos))
-		print("tartget_pos_dist ", target_pos_dist)
 		if target_pos_dist < 3:
-			print("Whaaat")
 			var valuezinho = abs(abs(position.y) - abs(target_peak_pos))
-			print("valuz: ",valuezinho)
 			position.y = int(target_peak_pos)
 			velocity.y = 0
 			target_peak_pos = null
@@ -85,8 +67,6 @@ func calculate_portal_force(distance):
 	# Calculate jump velocity based on the newly calculated jump_time
 	var portal_velocity = GRAVITY * (jump_time / 2)
 	
-	#print("Calculated portal Time: ", jump_time)
-	#print("Calculated Portal Velocity: ", portal_velocity)
 	return portal_velocity
 	
 	

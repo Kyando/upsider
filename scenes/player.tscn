@@ -92,7 +92,7 @@ animations = [{
 height = 26.0
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(0, -16)
+position = Vector2(0, -21)
 script = ExtResource("1_3irfc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
