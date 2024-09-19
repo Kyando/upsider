@@ -92,8 +92,3 @@ texture = ExtResource("6_vq2nv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Box4"]
 shape = SubResource("RectangleShape2D_mb2w4")
-
-[connection signal="body_entered" from="PortalBox" to="PortalBox" method="_on_body_entered"]
-[connection signal="body_entered" from="PortalBox2" to="PortalBox2" method="_on_body_entered"]
-[connection signal="body_entered" from="PortalBox3" to="PortalBox3" method="_on_body_entered"]
-[connection signal="body_entered" from="PortalBox4" to="PortalBox4" method="_on_body_entered"]

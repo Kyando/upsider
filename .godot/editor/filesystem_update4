@@ -1,4 +1,7 @@
 res://scenes/levels/level_001.tscn
+res://resources/tilesets/base_tileset.tres
+res://scripts/player.gd
 res://scenes/game.tscn
 res://scenes/player.tscn
 res://scenes/portal.tscn
+res://scripts/portal.gd

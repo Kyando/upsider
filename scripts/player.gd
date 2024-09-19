@@ -9,6 +9,9 @@ const GRAVITY := 600
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+
+@export var available_portal_distances := [60.0, 75.0,85.0, 95.0]
+
 var gravity_scale := 1
 var rotating_speed := 12.0
 var is_rotating = false
@@ -19,16 +22,13 @@ var y_offset = -6
 
 var y_force := 400
 var should_apply_force := false
-var portal_pos_y := 150.0
+var portal_pos_y = null
 var peak_pos = null
 var target_peak_pos = null
 
 
 func _ready() -> void:
 	peak_pos = position.y
-	print("x ", position.x)
-	print("y ", position.y)
-	print("peak_pos ", peak_pos)
 
 func _process(delta: float) -> void:
 	if is_rotating:
@@ -53,13 +53,21 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor():
 		is_rotating = false
+		peak_pos = position.y
+		target_peak_pos = null
 	else: # Add the gravity.
 		if should_apply_force:
 			var portal_offset = abs(position.y- portal_pos_y)
 			var distance = abs(peak_pos - portal_pos_y)
 			if gravity_scale == -1:
 				distance = abs(portal_pos_y - peak_pos)
+			
+			print("dist ", distance)
+			distance = get_closest_available_dist_force(distance)
+			print("dist2 ", distance)
 			distance += portal_offset
+			print("dist3 ", distance)
+			
 			y_force = calculate_portal_force(distance)
 			
 			var p_y = position.y
@@ -85,7 +93,6 @@ func _physics_process(delta: float) -> void:
 				velocity.y = 0
 				target_peak_pos = null
 			
-		#move_and_slide()
 	
 	
 	# Get the input direction and handle the movement/deceleration.
@@ -102,6 +109,18 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
+func get_closest_available_dist_force(dist: float) -> float:
+	var closest_dist = available_portal_distances[0]
+	var min_diff = abs(closest_dist - dist)
+	
+	for value in available_portal_distances:
+		var diff = abs(value - dist)
+		if diff < min_diff:
+			min_diff = diff
+			closest_dist = value
+	
+	return closest_dist
+	
 func invert_gravity(base_y_pos: float) -> void:
 	up_direction *= -1
 	gravity_scale *= -1
@@ -112,7 +131,6 @@ func invert_gravity(base_y_pos: float) -> void:
 func calculate_portal_force(distance):
 	# Calculate jump_time based on gravity and peak height
 	var jump_time = 2.0 * sqrt((2.0 * distance) / GRAVITY)
-	
 	# Calculate jump velocity based on the newly calculated jump_time
 	var portal_velocity = GRAVITY * (jump_time / 2)
 	
