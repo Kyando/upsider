@@ -1,10 +1,10 @@
+CollisionShape2D
+Area2D
 AnimatedSprite2D
 Sprite2D
 TileMapLayer
 Portal
 Node
-CollisionShape2D
 CharacterBody2D
-Area2D
 TileMap
 StaticBody2D

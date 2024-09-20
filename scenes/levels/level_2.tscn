@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=4 uid="uid://c3wqnq7y8nn3w"]
+
+[ext_resource type="PackedScene" uid="uid://dj36rvqsy8b77" path="res://scenes/portal.tscn" id="1_qn8cq"]
+[ext_resource type="PackedScene" uid="uid://rjhkpmqjk3vf" path="res://scenes/map/base_tile_map_layer.tscn" id="2_jg882"]
+[ext_resource type="PackedScene" uid="uid://cppxgw21ebeoy" path="res://scenes/objective.tscn" id="3_qgt0f"]
+[ext_resource type="PackedScene" uid="uid://dpes4e3b1cwwb" path="res://scenes/player.tscn" id="4_7axim"]
+
+[sub_resource type="GDScript" id="GDScript_4sdon"]
+script/source = "extends Node
+
+const LEVELS_FOLDER = \"res://scenes/levels/\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Level_001" type="Node"]
+script = SubResource("GDScript_4sdon")
+metadata/_edit_vertical_guides_ = [320.0]
+metadata/_edit_horizontal_guides_ = [180.0]
+
+[node name="Portal" parent="." instance=ExtResource("1_qn8cq")]
+position = Vector2(321, 164)
+scale = Vector2(3, 1)
+
+[node name="TileMapLayer" parent="." instance=ExtResource("2_jg882")]
+position = Vector2(0, 4)
+tile_map_data = PackedByteArray("AAAHAA4AAAAGAAEAAAAHAA8AAAAGAAEAAAAHABAAAAAGAAEAAAAHABEAAAAGAAEAAAAHABIAAAAGAAEAAAAHABMAAAAGAAEAAAAHABQAAAAGAAIAAAAIAA4AAAAJAAAAAAAIAA8AAAAJAAEAAAAIABAAAAAHAAEAAAAIABEAAAAHAAEAAAAIABIAAAAHAAEAAAAIABMAAAAHAAEAAAAIABQAAAAHAAIAAAAJAA4AAAAKAAAAAAAJAA8AAAAKAAEAAAAJABAAAAAHAAEAAAAJABEAAAAHAAEAAAAJABIAAAAHAAEAAAAJABMAAAAHAAEAAAAJABQAAAAHAAIAAAAKAA4AAAAHAAEAAAAKAA8AAAAHAAEAAAAKABAAAAAHAAEAAAAKABEAAAAHAAEAAAAKABIAAAAHAAEAAAAKABMAAAAHAAEAAAAKABQAAAAHAAIAAAALAA4AAAAIAAEAAAALAA8AAAAIAAEAAAALABAAAAAIAAEAAAALABEAAAAIAAEAAAALABIAAAAIAAEAAAALABMAAAAIAAEAAAALABQAAAAIAAIAAAAMAAsAAAAGAAEAAAAMAAwAAAAGAAIAAAANAAsAAAAHAAEAAAANAAwAAAAHAAIAAAAOAAsAAAAHAAEAAAAOAAwAAAAHAAIAAAAPAAsAAAAIAAEAAAAPAAwAAAAIAAIAAAAYAAsAAAAGAAIAAAAZAAsAAAAHAAIAAAAaAAsAAAAHAAIAAAAbAAsAAAAHAAIAAAAcAAsAAAAHAAIAAAAdAAsAAAAIAAIAAAAHAAwAAAAGAAAAAAAHAA0AAAAGAAEAAAAIAAwAAAAHAAAAAAAIAA0AAAAHAAEAAAAJAAwAAAAHAAAAAAAJAA0AAAAHAAEAAAAKAAwAAAAHAAAAAAAKAA0AAAAHAAEAAAALAAwAAAAIAAAAAAALAA0AAAAIAAEAAAAMAAkAAAAGAAAAAAAMAAoAAAAGAAEAAAANAAkAAAAHAAAAAAANAAoAAAAHAAEAAAAOAAkAAAAHAAAAAAAOAAoAAAAHAAEAAAAPAAkAAAAIAAAAAAAPAAoAAAAIAAEAAAAYAAkAAAAGAAAAAAAYAAoAAAAGAAEAAAAZAAkAAAAHAAAAAAAZAAoAAAAHAAEAAAAaAAkAAAAHAAAAAAAaAAoAAAAHAAEAAAAbAAkAAAAHAAAAAAAbAAoAAAAHAAEAAAAcAAkAAAAHAAAAAAAcAAoAAAAHAAEAAAAdAAkAAAAIAAAAAAAdAAoAAAAIAAEAAAA=")
+
+[node name="Objective" parent="." instance=ExtResource("3_qgt0f")]
+position = Vector2(433, 137)
+
+[node name="Player" parent="." instance=ExtResource("4_7axim")]
+position = Vector2(136, 175)
