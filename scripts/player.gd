@@ -3,12 +3,11 @@ extends CharacterBody2D
 
 const SPEED = 120.0
 const JUMP_VELOCITY = -250.0
-#const GRAVITY_MULTIPLIER = 1.5
-#const MAX_Y_VELOCITY = 500
 const GRAVITY := 600
+const JUMP_BUFFER_TIME := 0.15 
+const COYOTE_TIME := 0.15 
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-
 
 @export var available_portal_distances := [60.0, 75.0,85.0, 100.0]
 
@@ -17,8 +16,6 @@ var rotating_speed := 12.0
 var is_rotating = false
 var y_offset = -6
 
-#var jump_peak_abs = 0
-#var gravity_force = 0
 
 var y_force := 400
 var should_apply_force := false
@@ -26,11 +23,30 @@ var portal_pos_y = null
 var peak_pos = null
 var target_peak_pos = null
 
+# jump buffer
+
+var jump_buffer_timer := 0.0 
+var coyote_timer := 0.0 
+
 
 func _ready() -> void:
 	peak_pos = position.y
 
 func _process(delta: float) -> void:
+	
+#	Jump Buffer
+	if jump_buffer_timer > 0.0:
+		jump_buffer_timer -= delta 
+	if Input.is_action_just_pressed("ui_accept"):
+		jump_buffer_timer = JUMP_BUFFER_TIME 
+		
+#	Coyote Timer
+	if is_on_floor():
+		coyote_timer = COYOTE_TIME
+	else:
+		coyote_timer -= delta
+	
+#	Rotating
 	if is_rotating:
 		animated_sprite_2d.offset = Vector2(0, y_offset * gravity_scale)
 		animated_sprite_2d.rotate(rotating_speed * delta)
@@ -42,12 +58,15 @@ func _process(delta: float) -> void:
 			animated_sprite_2d.rotation_degrees = 180
 			animated_sprite_2d.offset = Vector2(0, y_offset * -gravity_scale)
 			
+
+#	Update Peak position
 	if gravity_scale == 1:
 		if position.y < peak_pos:
 			peak_pos = position.y
 	elif gravity_scale == -1:
 		if peak_pos < position.y :
 			peak_pos = position.y
+	
 
 func _physics_process(delta: float) -> void:
 	
@@ -58,7 +77,6 @@ func _physics_process(delta: float) -> void:
 	else: # Add the gravity.
 		if should_apply_force:
 			var portal_offset = position.y- portal_pos_y
-			print("portal_offset ", portal_offset)
 			var portal_direction = portal_offset / abs(portal_offset)
 			portal_offset = abs(portal_offset)
 			var distance = abs(peak_pos - portal_pos_y)
@@ -67,7 +85,6 @@ func _physics_process(delta: float) -> void:
 				
 			if gravity_scale * portal_direction == 1:
 				distance = get_closest_available_dist_force(distance)
-				print("dist ", distance)
 				distance += portal_offset
 				
 				y_force = calculate_portal_force(distance)
@@ -102,7 +119,13 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	var should_coyote_jump = coyote_timer  > 0.0
+	var should_buffer_jump = is_on_floor() and jump_buffer_timer > 0.0
+
+		
+	if should_buffer_jump or (should_coyote_jump and Input.is_action_just_pressed("ui_accept")):
+		coyote_timer = 0.0
+		jump_buffer_timer = 0.0
 		velocity.y = JUMP_VELOCITY * gravity_scale
 		
 	var direction := Input.get_axis("ui_left", "ui_right")
