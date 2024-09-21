@@ -10,7 +10,7 @@ const GRAVITY := 600
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 
-@export var available_portal_distances := [60.0, 75.0,85.0, 95.0]
+@export var available_portal_distances := [60.0, 75.0,85.0, 100.0]
 
 var gravity_scale := 1
 var rotating_speed := 12.0
@@ -57,18 +57,22 @@ func _physics_process(delta: float) -> void:
 		target_peak_pos = null
 	else: # Add the gravity.
 		if should_apply_force:
-			var portal_offset = abs(position.y- portal_pos_y)
+			var portal_offset = position.y- portal_pos_y
+			print("portal_offset ", portal_offset)
+			var portal_direction = portal_offset / abs(portal_offset)
+			portal_offset = abs(portal_offset)
 			var distance = abs(peak_pos - portal_pos_y)
 			if gravity_scale == -1:
 				distance = abs(portal_pos_y - peak_pos)
-			
-			print("dist ", distance)
-			distance = get_closest_available_dist_force(distance)
-			print("dist2 ", distance)
-			distance += portal_offset
-			print("dist3 ", distance)
-			
-			y_force = calculate_portal_force(distance)
+				
+			if gravity_scale * portal_direction == 1:
+				distance = get_closest_available_dist_force(distance)
+				print("dist ", distance)
+				distance += portal_offset
+				
+				y_force = calculate_portal_force(distance)
+			else:
+				y_force = 10
 			
 			var p_y = position.y
 			target_peak_pos = position.y - (distance * gravity_scale)

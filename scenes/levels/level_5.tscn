@@ -1,154 +1,40 @@
-[gd_scene load_steps=23 format=3 uid="uid://bss20re1uyqmr"]
+[gd_scene load_steps=6 format=4 uid="uid://b1eq6604hciqb"]
 
 [ext_resource type="PackedScene" uid="uid://dj36rvqsy8b77" path="res://scenes/portal.tscn" id="1_75aaj"]
 [ext_resource type="PackedScene" uid="uid://rjhkpmqjk3vf" path="res://scenes/map/base_tile_map_layer.tscn" id="2_jpekf"]
-[ext_resource type="Texture2D" uid="uid://deprkv15ic5ng" path="res://assets/sprites/Items/Fruits/Pineapple.png" id="3_5frb6"]
+[ext_resource type="PackedScene" uid="uid://cppxgw21ebeoy" path="res://scenes/objective.tscn" id="3_3a56w"]
 [ext_resource type="PackedScene" uid="uid://dpes4e3b1cwwb" path="res://scenes/player.tscn" id="4_daswi"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jolmn"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="GDScript" id="GDScript_4sdon"]
+script/source = "extends Node
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8k8ia"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(32, 0, 32, 32)
+const LEVELS_FOLDER = \"res://scenes/levels/\"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2pt0s"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(64, 0, 32, 32)
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cf4js"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ffi1e"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(128, 0, 32, 32)
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rcp7y"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_unsxo"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ug7pt"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cmn7b"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(256, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rf8b4"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(288, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xjvb2"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(320, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vfm1x"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(352, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_boueq"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(384, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xx1q7"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(416, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_61xmq"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(448, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8wxak"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(480, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_03015"]
-atlas = ExtResource("3_5frb6")
-region = Rect2(512, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_q4cxe"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jolmn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8k8ia")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2pt0s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cf4js")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ffi1e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rcp7y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_unsxo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ug7pt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cmn7b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rf8b4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xjvb2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vfm1x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_boueq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xx1q7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_61xmq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8wxak")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_03015")
-}],
-"loop": true,
-"name": &"default",
-"speed": 18.0
-}]
-
-[node name="TestLevel" type="Node"]
+[node name="Level_001" type="Node"]
+script = SubResource("GDScript_4sdon")
+metadata/_edit_vertical_guides_ = [320.0]
+metadata/_edit_horizontal_guides_ = [180.0]
 
 [node name="Portal" parent="." instance=ExtResource("1_75aaj")]
-position = Vector2(155, 192)
-scale = Vector2(1.88, 1)
-
-[node name="Portal2" parent="." instance=ExtResource("1_75aaj")]
-position = Vector2(415, 112)
-scale = Vector2(1.40995, 1.15071)
+position = Vector2(310, 164)
+scale = Vector2(2, 1)
 
 [node name="TileMapLayer" parent="." instance=ExtResource("2_jpekf")]
+position = Vector2(0, 4)
+tile_map_data = PackedByteArray("AAAXAAgAAAAGAAIAAAAXAAcAAAAGAAAAAAAMAA4AAAAGAAAAAAANAAgAAAAIAAAAAAANAAkAAAAIAAEAAAANAAoAAAAHAAIAAAAOAAkAAAAHAAAAAAAOAAoAAAAHAAIAAAAPAAkAAAAHAAAAAAAPAAoAAAAHAAIAAAAQAAkAAAAIAAAAAAAQAAoAAAAIAAIAAAAXAAkAAAAHAAAAAAAXAAoAAAAHAAEAAAAXAAsAAAAHAAEAAAAXAAwAAAAJAAAAAAAXAA0AAAAJAAEAAAAXAA4AAAAHAAIAAAAYAAkAAAAHAAAAAAAYAAoAAAAHAAEAAAAYAAsAAAAHAAEAAAAYAAwAAAAKAAAAAAAYAA0AAAAKAAEAAAAYAA4AAAAHAAIAAAAZAAkAAAAIAAAAAAAZAAoAAAAIAAEAAAAZAAsAAAAIAAEAAAAZAAwAAAAIAAEAAAAZAA0AAAAIAAEAAAAZAA4AAAAIAAIAAAALAAgAAAAGAAAAAAALAAkAAAAGAAEAAAALAAoAAAAGAAIAAAAMAAgAAAAHAAAAAAAMAAkAAAAHAAEAAAAMAAoAAAAHAAIAAAAMAA8AAAAGAAIAAAANAA4AAAAIAAAAAAANAA8AAAAIAAIAAAAVAAkAAAAGAAAAAAAVAAoAAAAGAAEAAAAVAAsAAAAGAAEAAAAVAAwAAAAGAAEAAAAVAA0AAAAGAAEAAAAVAA4AAAAGAAIAAAAWAAkAAAAHAAAAAAAWAAoAAAAHAAEAAAAWAAsAAAAHAAEAAAAWAAwAAAAHAAEAAAAWAA0AAAAHAAEAAAAWAA4AAAAHAAIAAAAYAAcAAAAIAAAAAAAYAAgAAAAIAAIAAAAYABIAAAAIAAAAAAAYABMAAAAIAAIAAAAWABIAAAAGAAAAAAAWABMAAAAGAAIAAAAXABIAAAAHAAAAAAAXABMAAAAHAAIAAAA=")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(342, 71)
-sprite_frames = SubResource("SpriteFrames_q4cxe")
-autoplay = "default"
-frame_progress = 0.929573
+[node name="Objective" parent="." instance=ExtResource("3_3a56w")]
+position = Vector2(385, 278)
 
 [node name="Player" parent="." instance=ExtResource("4_daswi")]
-position = Vector2(209, 131)
+position = Vector2(243, 127)
