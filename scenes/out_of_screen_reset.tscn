@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcdou6bshkia7"]
+
+[ext_resource type="Script" path="res://scripts/reset_level.gd" id="1_yqxnv"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bfe6k"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nl2sh"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_owmb3"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g4itt"]
+normal = Vector2(-1, 0)
+
+[node name="OutOfScreenReset" type="Area2D"]
+script = ExtResource("1_yqxnv")
+
+[node name="DownCollision" type="CollisionShape2D" parent="."]
+position = Vector2(294, 528)
+shape = SubResource("WorldBoundaryShape2D_bfe6k")
+
+[node name="UpCollision" type="CollisionShape2D" parent="."]
+position = Vector2(281, -142)
+shape = SubResource("WorldBoundaryShape2D_nl2sh")
+
+[node name="LeftCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-146, 153)
+shape = SubResource("WorldBoundaryShape2D_owmb3")
+
+[node name="RightCollision" type="CollisionShape2D" parent="."]
+position = Vector2(781, 148)
+shape = SubResource("WorldBoundaryShape2D_g4itt")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

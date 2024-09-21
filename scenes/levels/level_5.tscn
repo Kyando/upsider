@@ -1,29 +1,24 @@
-[gd_scene load_steps=6 format=4 uid="uid://b1eq6604hciqb"]
+[gd_scene load_steps=8 format=4 uid="uid://b1eq6604hciqb"]
 
+[ext_resource type="Script" path="res://scripts/level_controller.gd" id="1_7iwmn"]
 [ext_resource type="PackedScene" uid="uid://dj36rvqsy8b77" path="res://scenes/portal.tscn" id="1_75aaj"]
+[ext_resource type="PackedScene" uid="uid://dk448jkompg2p" path="res://scenes/scene_transition.tscn" id="1_c3wvt"]
+[ext_resource type="PackedScene" uid="uid://dcdou6bshkia7" path="res://scenes/out_of_screen_reset.tscn" id="1_q4yso"]
 [ext_resource type="PackedScene" uid="uid://rjhkpmqjk3vf" path="res://scenes/map/base_tile_map_layer.tscn" id="2_jpekf"]
 [ext_resource type="PackedScene" uid="uid://cppxgw21ebeoy" path="res://scenes/objective.tscn" id="3_3a56w"]
 [ext_resource type="PackedScene" uid="uid://dpes4e3b1cwwb" path="res://scenes/player.tscn" id="4_daswi"]
 
-[sub_resource type="GDScript" id="GDScript_4sdon"]
-script/source = "extends Node
-
-const LEVELS_FOLDER = \"res://scenes/levels/\"
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
-
-[node name="Level_001" type="Node"]
-script = SubResource("GDScript_4sdon")
+[node name="Level" type="Node"]
+script = ExtResource("1_7iwmn")
 metadata/_edit_vertical_guides_ = [320.0]
 metadata/_edit_horizontal_guides_ = [180.0]
+
+[node name="SceneTransition" parent="." instance=ExtResource("1_c3wvt")]
+
+[node name="OutOfScreenReset" parent="." instance=ExtResource("1_q4yso")]
+
+[node name="Objective" parent="." instance=ExtResource("3_3a56w")]
+position = Vector2(385, 278)
 
 [node name="Portal" parent="." instance=ExtResource("1_75aaj")]
 position = Vector2(310, 164)
@@ -32,9 +27,6 @@ scale = Vector2(2, 1)
 [node name="TileMapLayer" parent="." instance=ExtResource("2_jpekf")]
 position = Vector2(0, 4)
 tile_map_data = PackedByteArray("AAAXAAgAAAAGAAIAAAAXAAcAAAAGAAAAAAAMAA4AAAAGAAAAAAANAAgAAAAIAAAAAAANAAkAAAAIAAEAAAANAAoAAAAHAAIAAAAOAAkAAAAHAAAAAAAOAAoAAAAHAAIAAAAPAAkAAAAHAAAAAAAPAAoAAAAHAAIAAAAQAAkAAAAIAAAAAAAQAAoAAAAIAAIAAAAXAAkAAAAHAAAAAAAXAAoAAAAHAAEAAAAXAAsAAAAHAAEAAAAXAAwAAAAJAAAAAAAXAA0AAAAJAAEAAAAXAA4AAAAHAAIAAAAYAAkAAAAHAAAAAAAYAAoAAAAHAAEAAAAYAAsAAAAHAAEAAAAYAAwAAAAKAAAAAAAYAA0AAAAKAAEAAAAYAA4AAAAHAAIAAAAZAAkAAAAIAAAAAAAZAAoAAAAIAAEAAAAZAAsAAAAIAAEAAAAZAAwAAAAIAAEAAAAZAA0AAAAIAAEAAAAZAA4AAAAIAAIAAAALAAgAAAAGAAAAAAALAAkAAAAGAAEAAAALAAoAAAAGAAIAAAAMAAgAAAAHAAAAAAAMAAkAAAAHAAEAAAAMAAoAAAAHAAIAAAAMAA8AAAAGAAIAAAANAA4AAAAIAAAAAAANAA8AAAAIAAIAAAAVAAkAAAAGAAAAAAAVAAoAAAAGAAEAAAAVAAsAAAAGAAEAAAAVAAwAAAAGAAEAAAAVAA0AAAAGAAEAAAAVAA4AAAAGAAIAAAAWAAkAAAAHAAAAAAAWAAoAAAAHAAEAAAAWAAsAAAAHAAEAAAAWAAwAAAAHAAEAAAAWAA0AAAAHAAEAAAAWAA4AAAAHAAIAAAAYAAcAAAAIAAAAAAAYAAgAAAAIAAIAAAAYABIAAAAIAAAAAAAYABMAAAAIAAIAAAAWABIAAAAGAAAAAAAWABMAAAAGAAIAAAAXABIAAAAHAAAAAAAXABMAAAAHAAIAAAA=")
-
-[node name="Objective" parent="." instance=ExtResource("3_3a56w")]
-position = Vector2(385, 278)
 
 [node name="Player" parent="." instance=ExtResource("4_daswi")]
 position = Vector2(243, 127)
