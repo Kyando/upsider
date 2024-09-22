@@ -9,7 +9,7 @@ const COYOTE_TIME := 0.15
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-@export var available_portal_distances := [60.0, 75.0,85.0, 100.0]
+@export var available_portal_distances := [40.0, 60.0, 75.0,85.0, 100.0]
 
 var gravity_scale := 1
 var rotating_speed := 12.0
