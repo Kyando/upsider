@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dpes4e3b1cwwb"]
+[gd_scene load_steps=17 format=3 uid="uid://dpes4e3b1cwwb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_3irfc"]
 [ext_resource type="Texture2D" uid="uid://txaxblm12bv5" path="res://assets/sprites/Main Characters/Pink Man/Idle (32x32).png" id="2_wd2pq"]
+[ext_resource type="Script" path="res://scripts/gravity_effect.gd" id="3_tjuu3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qe4p"]
 atlas = ExtResource("2_wd2pq")
@@ -104,3 +105,7 @@ frame_progress = 0.778783
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_i5l7y")
+
+[node name="GravityEffect" type="Node" parent="." node_paths=PackedStringArray("body") groups=["Player"]]
+script = ExtResource("3_tjuu3")
+body = NodePath("..")
