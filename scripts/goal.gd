@@ -1,5 +1,6 @@
-class_name Goal 
 extends Area2D
+class_name Goal 
+
 
 signal on_goal_reached
 

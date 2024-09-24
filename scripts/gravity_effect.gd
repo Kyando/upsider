@@ -1,5 +1,6 @@
-class_name GravityEffect
 extends Node
+class_name GravityEffect
+
 
 const GRAVITY := 600
 const MAX_FALL_SPEED := 300  

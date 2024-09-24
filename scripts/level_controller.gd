@@ -1,5 +1,6 @@
-class_name LevelController
 extends Node
+class_name LevelController
+
 
 @onready var objective: Goal = $Objective
 @onready var scene_transition: SceneTransition = $SceneTransition

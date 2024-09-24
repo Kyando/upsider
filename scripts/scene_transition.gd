@@ -1,5 +1,6 @@
-class_name SceneTransition
 extends CanvasLayer
+class_name SceneTransition
+
 
 const LEVELS_FOLDER_PATH = "res://scenes/levels/level_"
 
