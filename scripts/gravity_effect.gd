@@ -3,10 +3,16 @@ class_name GravityEffect
 
 
 const GRAVITY := 600
-const MAX_FALL_SPEED := 300  
+const MAX_FALL_SPEED := 300   
 
 #@export var available_portal_distances := [20.0, 50.0, 85.0, 100.0]
 @export var available_portal_distances := [38.0,  55.0, 82.0, 98.0 ]
+@export var velocity_distance_map := {
+	0: 38.0,
+	260: 55.0,
+	295: 82.0,
+	380: 98.0
+}
 @export var body : CharacterBody2D
 
 var fall_speed_multiplier := 2
@@ -38,26 +44,36 @@ func _process(delta: float) -> void:
 func process_physics(delta: float) -> void:
 	if not body.is_on_floor():
 		if should_apply_force:
+			print("---")
+			print("pos_y ", body.position.y)
+			print("pposy ", portal_pos_y)
 			var portal_offset = body.position.y- portal_pos_y
-			var portal_direction = -body.velocity.y / abs(body.velocity.y)
 			portal_offset = abs(portal_offset )
+			print("offst ", portal_offset)
+			var portal_direction = -body.velocity.y / abs(body.velocity.y)
+
 			var distance = abs(peak_pos - portal_pos_y)
 			if gravity_scale == -1:
 				distance = abs(portal_pos_y - peak_pos)
 			
 			if gravity_scale * portal_direction == 1:
-				print("dist1 ", distance)
-				distance = get_closest_available_dist_force(distance)
-				print("dist2 ", distance)
-				distance += portal_offset
+				#distance = get_closest_available_dist_force(distance)
+				distance = get_dist_force_from_velocity(body.velocity.y)
+				#distance += portal_offset
+				print("dist ", distance)
+				var target_peak = body.position.y + (-1 * portal_direction * portal_offset) + distance
+				print("targt ", target_peak)
+				var peak_dist = abs(target_peak - portal_pos_y) 
+				print("peak_d ", peak_dist)
+				var p_peak_dist = abs(target_peak - body.position.y) 
+				print("peak_p ", p_peak_dist)
+			
 				
 				y_force = calculate_portal_force(distance)
 			else:
 				y_force = 10
 			
-			var p_y = body.position.y
 			peak_pos = body.position.y
-			
 			
 			if gravity_scale == -1:
 				body.velocity.y = y_force
@@ -72,9 +88,20 @@ func process_physics(delta: float) -> void:
 			fall_multiplier = fall_speed_multiplier
 		
 		body.velocity.y += GRAVITY  * gravity_scale * fall_multiplier * delta
-		body.velocity.y = clamp(body.velocity.y, -MAX_FALL_SPEED, MAX_FALL_SPEED)
+		#body.velocity.y = clamp(body.velocity.y, -MAX_FALL_SPEED, MAX_FALL_SPEED)
 		
 
+
+
+func get_dist_force_from_velocity(y_velocity: float) -> float:
+	var output_dist := 0.0
+	var y_vel = abs(y_velocity)
+	for key_vel in velocity_distance_map:
+		if y_vel >= key_vel:
+			output_dist = velocity_distance_map[key_vel]
+	
+	return output_dist
+	
 func get_closest_available_dist_force(dist: float) -> float:
 	var closest_dist = available_portal_distances[0]
 	var min_diff = abs(closest_dist - dist)

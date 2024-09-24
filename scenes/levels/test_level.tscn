@@ -1,5 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://r1x30nlc57aj"]
+[gd_scene load_steps=24 format=4 uid="uid://r1x30nlc57aj"]
 
+[ext_resource type="PackedScene" uid="uid://dcdou6bshkia7" path="res://scenes/out_of_screen_reset.tscn" id="1_bq8pv"]
 [ext_resource type="PackedScene" uid="uid://dj36rvqsy8b77" path="res://scenes/portal.tscn" id="1_c0gfl"]
 [ext_resource type="PackedScene" uid="uid://rjhkpmqjk3vf" path="res://scenes/map/base_tile_map_layer.tscn" id="2_y4slh"]
 [ext_resource type="Texture2D" uid="uid://deprkv15ic5ng" path="res://assets/sprites/Items/Fruits/Pineapple.png" id="3_s5rrj"]
@@ -134,15 +135,23 @@ animations = [{
 
 [node name="TestLevel" type="Node"]
 
+[node name="OutOfScreenReset" parent="." instance=ExtResource("1_bq8pv")]
+
 [node name="Portal" parent="." instance=ExtResource("1_c0gfl")]
 position = Vector2(155, 192)
 scale = Vector2(1.88, 1)
 
+[node name="Portal3" parent="." instance=ExtResource("1_c0gfl")]
+position = Vector2(43, 192)
+scale = Vector2(1.88, 1)
+
 [node name="Portal2" parent="." instance=ExtResource("1_c0gfl")]
-position = Vector2(415, 112)
+position = Vector2(327, 192)
 scale = Vector2(1.40995, 1.15071)
 
 [node name="TileMapLayer" parent="." instance=ExtResource("2_y4slh")]
+position = Vector2(-1, 0)
+tile_map_data = PackedByteArray("AAAMAAsAAAAGAAAAAAANAAsAAAAHAAAAAAAQAAsAAAAHAAEAAAARAAsAAAAHAAEAAAAMAAwAAAAGAAIAAAANAAwAAAAHAAIAAAAQAAwAAAAHAAEAAAARAAwAAAAHAAEAAAASAAgAAAAIAAAAAAASAAkAAAAIAAEAAAASAAoAAAAHAAEAAAASAAsAAAAHAAEAAAASAAwAAAAHAAEAAAASAA0AAAAMAAEAAAASAA4AAAAMAAEAAAASAA8AAAAMAAEAAAAQAAoAAAAHAAEAAAAQAAgAAAAGAAAAAAAQAAkAAAAGAAEAAAARAAgAAAAHAAAAAAARAAkAAAAHAAEAAAARAAoAAAAHAAEAAAAWAAoAAAAGAAAAAAAWAAsAAAAGAAEAAAAWAAwAAAAGAAIAAAAXAAoAAAAHAAAAAAAXAAsAAAAHAAEAAAAXAAwAAAAHAAIAAAAYAAoAAAAHAAAAAAAYAAsAAAAHAAEAAAAYAAwAAAAHAAIAAAAZAAoAAAAHAAAAAAAZAAsAAAAHAAEAAAAZAAwAAAAHAAIAAAAaAAoAAAAIAAAAAAAaAAsAAAAIAAEAAAAaAAwAAAAIAAIAAAAHAAoAAAAGAAAAAAAHAAsAAAAGAAEAAAAHAAwAAAAHAAEAAAAIAAoAAAAHAAAAAAAIAAsAAAAHAAEAAAAIAAwAAAAHAAEAAAAOAAoAAAAGAAAAAAAOAAsAAAAGAAEAAAAOAAwAAAAHAAEAAAAPAAoAAAAHAAAAAAAPAAsAAAAHAAEAAAAPAAwAAAAHAAEAAAAHAA0AAAAHAAEAAAAIAA0AAAAHAAEAAAAFAAkAAAAGAAAAAAAGAAkAAAAHAAAAAAAFAAoAAAAGAAEAAAAGAAoAAAAHAAEAAAAFAAsAAAAHAAEAAAAGAAsAAAAHAAEAAAAGAAwAAAAHAAEAAAAGAA0AAAAHAAEAAAAFAA0AAAAHAAEAAAAFAAwAAAAHAAEAAAAFAA4AAAAHAAEAAAAGAA4AAAAHAAEAAAD//wsAAAAGAAAAAAD//wwAAAAGAAIAAAAAAAsAAAAHAAAAAAAAAAwAAAAHAAIAAAABAAsAAAAIAAAAAAABAAwAAAAIAAIAAAARAA0AAAAMAAEAAAARAA4AAAAMAAEAAAARAA8AAAAMAAEAAAA=")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(342, 71)
