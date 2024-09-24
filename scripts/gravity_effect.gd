@@ -2,21 +2,22 @@ class_name GravityEffect
 extends Node
 
 const GRAVITY := 600
+const MAX_FALL_SPEED := 300  
 
-@export var available_portal_distances := [40.0, 60.0, 75.0,85.0, 100.0]
+#@export var available_portal_distances := [20.0, 50.0, 85.0, 100.0]
+@export var available_portal_distances := [38.0,  55.0, 82.0, 98.0 ]
 @export var body : CharacterBody2D
 
+var fall_speed_multiplier := 2
 var gravity_scale := 1
 var rotating_speed := 12.0
 var is_rotating = false
 var y_offset = -6
 
-
 var y_force := 400
 var should_apply_force := false
 var portal_pos_y = null
 var peak_pos = null
-var target_peak_pos = null
 
 func _ready() -> void:
 	body = get_parent() as CharacterBody2D
@@ -24,32 +25,29 @@ func _ready() -> void:
 	
 	
 func _process(delta: float) -> void:
-#	Update Peak position
+	#Update Peak position
 	if gravity_scale == 1:
-		if body.position.y < peak_pos:
+		if body.position.y < peak_pos :
 			peak_pos = body.position.y
 	elif gravity_scale == -1:
 		if peak_pos < body.position.y :
 			peak_pos = body.position.y 
 
 
-func _physics_process(delta: float) -> void:
-	if body.is_on_floor():
-		peak_pos = body.position.y
-		target_peak_pos = null
-	else: # Add the gravity.
+func process_physics(delta: float) -> void:
+	if not body.is_on_floor():
 		if should_apply_force:
 			var portal_offset = body.position.y- portal_pos_y
-			#var portal_direction = portal_offset / abs(portal_offset)
 			var portal_direction = -body.velocity.y / abs(body.velocity.y)
 			portal_offset = abs(portal_offset )
 			var distance = abs(peak_pos - portal_pos_y)
 			if gravity_scale == -1:
 				distance = abs(portal_pos_y - peak_pos)
 			
-			print("Portal Direction ", portal_direction)
 			if gravity_scale * portal_direction == 1:
+				print("dist1 ", distance)
 				distance = get_closest_available_dist_force(distance)
+				print("dist2 ", distance)
 				distance += portal_offset
 				
 				y_force = calculate_portal_force(distance)
@@ -57,7 +55,6 @@ func _physics_process(delta: float) -> void:
 				y_force = 10
 			
 			var p_y = body.position.y
-			target_peak_pos = body.position.y - (distance * gravity_scale)
 			peak_pos = body.position.y
 			
 			
@@ -68,31 +65,14 @@ func _physics_process(delta: float) -> void:
 			should_apply_force = false
 		
 		# Apply gravity to the velocity
-		body.velocity.y += GRAVITY  * gravity_scale * delta
+		var fall_multiplier = 1
+		if (gravity_scale == 1 and body.velocity.y > 0) or \
+		(gravity_scale == -1 and body.velocity.y < 0):
+			fall_multiplier = fall_speed_multiplier
 		
+		body.velocity.y += GRAVITY  * gravity_scale * fall_multiplier * delta
+		body.velocity.y = clamp(body.velocity.y, -MAX_FALL_SPEED, MAX_FALL_SPEED)
 		
-		if target_peak_pos: 
-			var target_pos_dist = abs(abs(body.position.y) - abs(target_peak_pos))
-			if target_pos_dist < 3:
-				var valuezinho = abs(abs(body.position.y) - abs(target_peak_pos))
-				body.position.y = int(target_peak_pos)
-				body.velocity.y =  0
-				target_peak_pos = null
-			
-	
-	
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	
-
-	#var direction := Input.get_axis("ui_left", "ui_right")
-	#if direction:
-		#velocity.x = direction * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
-#
-	#move_and_slide()
-	
 
 func get_closest_available_dist_force(dist: float) -> float:
 	var closest_dist = available_portal_distances[0]
@@ -100,7 +80,7 @@ func get_closest_available_dist_force(dist: float) -> float:
 	
 	for value in available_portal_distances:
 		var diff = abs(value - dist)
-		if diff < min_diff:
+		if diff < min_diff and dist >= value:
 			min_diff = diff
 			closest_dist = value
 	

@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 
-const SPEED = 120.0
-const JUMP_VELOCITY = -250.0
+const SPEED = 100.0
+const JUMP_VELOCITY = -200.0
 const JUMP_BUFFER_TIME := 0.15 
 const COYOTE_TIME := 0.15 
 
@@ -11,6 +11,7 @@ const COYOTE_TIME := 0.15
 var rotating_speed := 12.0
 var is_rotating = false
 var y_offset = -6
+
 
 # jump buffer
 var jump_buffer_timer := 0.0 
@@ -45,6 +46,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	
+	$GravityEffect.process_physics(delta)
 	var should_coyote_jump = coyote_timer  > 0.0
 	var should_buffer_jump = is_on_floor() and jump_buffer_timer > 0.0
 
