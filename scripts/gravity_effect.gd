@@ -3,19 +3,21 @@ class_name GravityEffect
 
 
 const GRAVITY := 600
-const MAX_FALL_SPEED := 300   
+const MAX_FALL_SPEED := 1000   
 
 #@export var available_portal_distances := [20.0, 50.0, 85.0, 100.0]
 @export var available_portal_distances := [38.0,  55.0, 82.0, 98.0 ]
 @export var velocity_distance_map := {
-	0: 38.0,
-	260: 55.0,
-	295: 82.0,
-	380: 98.0
-}
+	#0: 50.0,
+	0: 30.0,
+	235: 55.0 ,
+	315: 82.0,
+	410: 98.0
+	}
+	
 @export var body : CharacterBody2D
 
-var fall_speed_multiplier := 2
+var fall_speed_multiplier := 1.5
 var gravity_scale := 1
 var rotating_speed := 12.0
 var is_rotating = false
@@ -35,7 +37,7 @@ func _process(delta: float) -> void:
 	#Update Peak position
 	if gravity_scale == 1:
 		if body.position.y < peak_pos :
-			peak_pos = body.position.y
+			peak_pos = body.position. y
 	elif gravity_scale == -1:
 		if peak_pos < body.position.y :
 			peak_pos = body.position.y 
@@ -44,12 +46,9 @@ func _process(delta: float) -> void:
 func process_physics(delta: float) -> void:
 	if not body.is_on_floor():
 		if should_apply_force:
-			print("---")
-			print("pos_y ", body.position.y)
-			print("pposy ", portal_pos_y)
 			var portal_offset = body.position.y- portal_pos_y
 			portal_offset = abs(portal_offset )
-			print("offst ", portal_offset)
+			portal_offset = 0
 			var portal_direction = -body.velocity.y / abs(body.velocity.y)
 
 			var distance = abs(peak_pos - portal_pos_y)
@@ -57,18 +56,9 @@ func process_physics(delta: float) -> void:
 				distance = abs(portal_pos_y - peak_pos)
 			
 			if gravity_scale * portal_direction == 1:
-				#distance = get_closest_available_dist_force(distance)
 				distance = get_dist_force_from_velocity(body.velocity.y)
-				#distance += portal_offset
-				print("dist ", distance)
-				var target_peak = body.position.y + (-1 * portal_direction * portal_offset) + distance
-				print("targt ", target_peak)
-				var peak_dist = abs(target_peak - portal_pos_y) 
-				print("peak_d ", peak_dist)
-				var p_peak_dist = abs(target_peak - body.position.y) 
-				print("peak_p ", p_peak_dist)
-			
-				
+				print("vel ", body.velocity.y)
+				distance = distance + (-1 * portal_direction * portal_offset)
 				y_force = calculate_portal_force(distance)
 			else:
 				y_force = 10
@@ -118,6 +108,7 @@ func invert_gravity(base_y_pos: float) -> void:
 	body.up_direction *= -1
 	gravity_scale *= -1
 	portal_pos_y = base_y_pos
+	body.position.y = portal_pos_y
 	should_apply_force = true
 	
 

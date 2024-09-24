@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=4 uid="uid://qx7p20hm0hww"]
+
+[ext_resource type="Script" path="res://scripts/level_controller.gd" id="1_qtfup"]
+[ext_resource type="PackedScene" uid="uid://dk448jkompg2p" path="res://scenes/scene_transition.tscn" id="2_ao3ge"]
+[ext_resource type="PackedScene" uid="uid://dcdou6bshkia7" path="res://scenes/out_of_screen_reset.tscn" id="3_as8ba"]
+[ext_resource type="PackedScene" uid="uid://cppxgw21ebeoy" path="res://scenes/objective.tscn" id="4_tkyme"]
+[ext_resource type="PackedScene" uid="uid://dpes4e3b1cwwb" path="res://scenes/player.tscn" id="5_mo4ig"]
+[ext_resource type="PackedScene" uid="uid://rjhkpmqjk3vf" path="res://scenes/map/base_tile_map_layer.tscn" id="6_ffskw"]
+
+[node name="Level" type="Node"]
+script = ExtResource("1_qtfup")
+metadata/_edit_vertical_guides_ = [320.0]
+metadata/_edit_horizontal_guides_ = [180.0]
+
+[node name="SceneTransition" parent="." instance=ExtResource("2_ao3ge")]
+
+[node name="OutOfScreenReset" parent="." instance=ExtResource("3_as8ba")]
+
+[node name="Objective" parent="." instance=ExtResource("4_tkyme")]
+position = Vector2(376, 146)
+
+[node name="Player" parent="." instance=ExtResource("5_mo4ig")]
+position = Vector2(252, 158)
+
+[node name="TileMapLayer" parent="." instance=ExtResource("6_ffskw")]
+position = Vector2(0, 4)
+tile_map_data = PackedByteArray("AAANAAsAAAAGAAAAAAAOAAsAAAAHAAAAAAAPAAsAAAAHAAAAAAAQAAsAAAAHAAAAAAARAAsAAAAHAAAAAAANAAwAAAAGAAIAAAAOAAwAAAAHAAIAAAAPAAwAAAAHAAIAAAAQAAwAAAAHAAIAAAARAAwAAAAHAAIAAAASAAsAAAAIAAAAAAASAAwAAAAIAAIAAAAVAAoAAAAGAAAAAAAVAAsAAAAGAAEAAAAVAAwAAAAGAAIAAAAWAAoAAAAHAAAAAAAWAAsAAAAHAAEAAAAWAAwAAAAHAAIAAAAXAAoAAAAHAAAAAAAXAAsAAAAHAAEAAAAXAAwAAAAHAAIAAAAYAAoAAAAHAAAAAAAYAAsAAAAHAAEAAAAYAAwAAAAHAAIAAAAZAAoAAAAIAAAAAAAZAAsAAAAIAAEAAAAZAAwAAAAIAAIAAAA=")

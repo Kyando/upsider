@@ -10,7 +10,7 @@ const COYOTE_TIME := 0.15
 
 var rotating_speed := 12.0
 var is_rotating = false
-var y_offset = -6
+var y_offset = -10
 
 
 # jump buffer

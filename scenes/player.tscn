@@ -90,20 +90,20 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i5l7y"]
-height = 26.0
+height = 22.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(0, -21)
 script = ExtResource("1_3irfc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Player"]]
+position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_egi4d")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.778783
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
-position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_i5l7y")
 
 [node name="GravityEffect" type="Node" parent="." node_paths=PackedStringArray("body") groups=["Player"]]
