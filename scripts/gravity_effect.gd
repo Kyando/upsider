@@ -47,8 +47,7 @@ func process_physics(delta: float) -> void:
 	if not body.is_on_floor():
 		if should_apply_force:
 			var portal_offset = body.position.y- portal_pos_y
-			portal_offset = abs(portal_offset )
-			portal_offset = 0
+			portal_offset = abs(portal_offset)
 			var portal_direction = -body.velocity.y / abs(body.velocity.y)
 
 			var distance = abs(peak_pos - portal_pos_y)
@@ -58,6 +57,7 @@ func process_physics(delta: float) -> void:
 			if gravity_scale * portal_direction == 1:
 				distance = get_dist_force_from_velocity(body.velocity.y)
 				print("vel ", body.velocity.y)
+				print("dist ", distance)
 				distance = distance + (-1 * portal_direction * portal_offset)
 				y_force = calculate_portal_force(distance)
 			else:
@@ -104,12 +104,13 @@ func get_closest_available_dist_force(dist: float) -> float:
 	
 	return closest_dist
 	
-func invert_gravity(base_y_pos: float) -> void:
+func invert_gravity(base_y_pos: float, apply_force: bool) -> void:
 	body.up_direction *= -1
 	gravity_scale *= -1
 	portal_pos_y = base_y_pos
-	body.position.y = portal_pos_y
-	should_apply_force = true
+	should_apply_force = apply_force
+	if should_apply_force:
+		body.position.y = portal_pos_y
 	
 
 func calculate_portal_force(distance):

@@ -65,5 +65,5 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func invert_gravity(base_y_pos: float) -> void:
-	$GravityEffect.invert_gravity(base_y_pos)
+func invert_gravity(base_y_pos: float, apply_force: bool) -> void:
+	$GravityEffect.invert_gravity(base_y_pos, apply_force)
