@@ -101,12 +101,26 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY * gravity_scale
 		
+		
 	var direction := Input.get_axis("ui_left", "ui_right")
+	
+	if direction>0:
+		$AnimatedSprite2D3.flip_h = false
+	if direction<0:
+		$AnimatedSprite2D3.flip_h = true
+	
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+		
+	if !direction and is_on_floor():
+		$AnimatedSprite2D3.play("Idle")
+	if direction and is_on_floor():
+		$AnimatedSprite2D3.play("Run")	
+	if !is_on_floor():
+		$AnimatedSprite2D3.play("Jump")	
+		
 	move_and_slide()
 	
 func get_closest_available_dist_force(dist: float) -> float:
@@ -124,6 +138,7 @@ func get_closest_available_dist_force(dist: float) -> float:
 func invert_gravity(base_y_pos: float) -> void:
 	up_direction *= -1
 	gravity_scale *= -1
+	$AnimatedSprite2D3.scale.y *= -1
 	portal_pos_y = base_y_pos
 	should_apply_force = true
 	

@@ -3,3 +3,5 @@ res://resources/tilesets/base_tileset.tres
 res://scenes/player.tscn
 res://scenes/levels/level_001.tscn
 res://scenes/portal.tscn
+res://scenes/levels/test_level.tscn
+res://scenes/map/base_tile_map_layer.tscn

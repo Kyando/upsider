@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dpes4e3b1cwwb"]
+[gd_scene load_steps=24 format=3 uid="uid://dpes4e3b1cwwb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_3irfc"]
 [ext_resource type="Texture2D" uid="uid://txaxblm12bv5" path="res://assets/sprites/Main Characters/Pink Man/Idle (32x32).png" id="2_wd2pq"]
+[ext_resource type="Texture2D" uid="uid://c02f5kgossklv" path="res://assets/sprites/Sprite_Teste/Gato.png" id="3_t40r6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qe4p"]
 atlas = ExtResource("2_wd2pq")
@@ -88,6 +89,66 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_npv8w"]
+atlas = ExtResource("3_t40r6")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kucks"]
+atlas = ExtResource("3_t40r6")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ier6"]
+atlas = ExtResource("3_t40r6")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3vw4"]
+atlas = ExtResource("3_t40r6")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7jlm"]
+atlas = ExtResource("3_t40r6")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yl5p2"]
+atlas = ExtResource("3_t40r6")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h8shy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_npv8w")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kucks")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ier6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3vw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7jlm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yl5p2")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i5l7y"]
 height = 26.0
 
@@ -96,10 +157,25 @@ position = Vector2(0, -21)
 script = ExtResource("1_3irfc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_egi4d")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.778783
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(0, -13)
+sprite_frames = SubResource("SpriteFrames_h8shy")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 2)
+sprite_frames = SubResource("SpriteFrames_h8shy")
+animation = &"Jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
