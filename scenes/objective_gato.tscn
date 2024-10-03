@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7spln1rp0kg8"]
+
+[ext_resource type="Script" path="res://scripts/goal.gd" id="1_yphrd"]
+[ext_resource type="Texture2D" uid="uid://c66xk8kf40cy2" path="res://assets/sprites/Testes/Gato.png" id="2_xmtge"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cgn2"]
+atlas = ExtResource("2_xmtge")
+region = Rect2(320, 0, 160, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q4cxe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cgn2")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hi473"]
+radius = 16.0
+height = 52.0
+
+[node name="Saída" type="Area2D"]
+script = ExtResource("1_yphrd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_q4cxe")
+animation = &""
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3, -9)
+sprite_frames = SubResource("SpriteFrames_q4cxe")
+animation = &"new_animation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CapsuleShape2D_hi473")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

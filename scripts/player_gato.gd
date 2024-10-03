@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
+class_name PlayerController
 
-const SPEED = 100.0
-const JUMP_VELOCITY = -200.0
+const SPEED = 200.0
+const JUMP_VELOCITY = -380.0
+const PLANAR_velocity = -150.0
 const JUMP_BUFFER_TIME := 0.15 
 const COYOTE_TIME := 0.15 
 
@@ -11,6 +13,8 @@ const COYOTE_TIME := 0.15
 var rotating_speed := 12.0
 var is_rotating = false
 var y_offset = -10
+
+var planar = false
 
 
 # jump buffer
@@ -56,18 +60,33 @@ func _physics_process(delta: float) -> void:
 		jump_buffer_timer = 0.0
 		velocity.y = JUMP_VELOCITY * -up_direction.y
 		
+	if Input.is_action_just_pressed("voo") and not is_on_floor():	
+		velocity.y = PLANAR_velocity * -up_direction.y
+		planar = true
+		
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED
-		animated_sprite_2d.play("Run")
+		
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		animated_sprite_2d.play("Idle")
+		
 
 	if direction > 0:
 		animated_sprite_2d.flip_h = false
 	if direction < 0:	
 		animated_sprite_2d.flip_h = true
+
+	if is_on_floor():
+		planar = false
+		if not direction:
+			animated_sprite_2d.play("Idle")
+	if is_on_floor() and direction:
+		animated_sprite_2d.play("Run")
+	if not is_on_floor():
+		animated_sprite_2d.play("Jump")	
+	if is_on_floor():
+		planar = false
 
 	move_and_slide()
 

@@ -29,7 +29,7 @@ position = Vector2(-146, 153)
 shape = SubResource("WorldBoundaryShape2D_owmb3")
 
 [node name="RightCollision" type="CollisionShape2D" parent="."]
-position = Vector2(781, 148)
+position = Vector2(996, 155)
 shape = SubResource("WorldBoundaryShape2D_g4itt")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

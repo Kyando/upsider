@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://dpes4e3b1cwwb"]
+[gd_scene load_steps=21 format=3 uid="uid://dpes4e3b1cwwb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_3irfc"]
 [ext_resource type="Texture2D" uid="uid://txaxblm12bv5" path="res://assets/sprites/Main Characters/Pink Man/Idle (32x32).png" id="2_wd2pq"]
+[ext_resource type="Texture2D" uid="uid://c66xk8kf40cy2" path="res://assets/sprites/Testes/Gato.png" id="3_b4swc"]
 [ext_resource type="Script" path="res://scripts/gravity_effect.gd" id="3_tjuu3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qe4p"]
@@ -89,8 +90,36 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_de5by"]
+atlas = ExtResource("3_b4swc")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rd1v"]
+atlas = ExtResource("3_b4swc")
+region = Rect2(80, 0, 80, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2rh5s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_de5by")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rd1v")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i5l7y"]
-height = 22.0
+radius = 9.0
+height = 24.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(0, -21)
@@ -102,6 +131,12 @@ sprite_frames = SubResource("SpriteFrames_egi4d")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.778783
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." groups=["Player"]]
+visible = false
+position = Vector2(0, -5.305)
+sprite_frames = SubResource("SpriteFrames_2rh5s")
+animation = &"Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 shape = SubResource("CapsuleShape2D_i5l7y")

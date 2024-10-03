@@ -1,0 +1,94 @@
+[gd_scene load_steps=10 format=3 uid="uid://dwisqtdg8t5yi"]
+
+[ext_resource type="PackedScene" uid="uid://dcdou6bshkia7" path="res://scenes/out_of_screen_reset.tscn" id="1_267s2"]
+[ext_resource type="PackedScene" uid="uid://dj36rvqsy8b77" path="res://scenes/portal.tscn" id="2_keqav"]
+[ext_resource type="Texture2D" uid="uid://c5ngai7o7bana" path="res://assets/sprites/Testes/Tileset.png" id="5_rwu37"]
+[ext_resource type="PackedScene" uid="uid://cppxgw21ebeoy" path="res://scenes/objective.tscn" id="6_34053"]
+[ext_resource type="PackedScene" uid="uid://ihn4ahar8ew" path="res://scenes/Door.tscn" id="7_yngxi"]
+[ext_resource type="PackedScene" uid="uid://dn6roi54bgsqp" path="res://scenes/player_gato.tscn" id="8_p4cvy"]
+[ext_resource type="PackedScene" uid="uid://b7spln1rp0kg8" path="res://scenes/objective_gato.tscn" id="9_b2d5m"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_at65i"]
+texture = ExtResource("5_rwu37")
+texture_region_size = Vector2i(64, 64)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+8:0/0 = 0
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+11:0/0 = 0
+12:0/0 = 0
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+9:0/0 = 0
+10:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_lutqe"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_at65i")
+
+[node name="TestLevel" type="Node"]
+metadata/_edit_horizontal_guides_ = [184.0, 200.0, 216.0]
+
+[node name="OutOfScreenReset" parent="." instance=ExtResource("1_267s2")]
+position = Vector2(208, 62)
+
+[node name="Portal" parent="." instance=ExtResource("2_keqav")]
+modulate = Color(8.18223e-07, 0.892672, 0, 1)
+z_index = -1
+position = Vector2(465, 374)
+scale = Vector2(3.12, 4.24)
+
+[node name="Portal3" parent="." instance=ExtResource("2_keqav")]
+modulate = Color(0.879747, 0, 0.163708, 1)
+z_index = -1
+position = Vector2(1138, 335)
+scale = Vector2(3.12, 4.24)
+
+[node name="Portal2" parent="." instance=ExtResource("2_keqav")]
+z_index = -1
+position = Vector2(1137, 81)
+scale = Vector2(1.40995, 1.15071)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 5
+position = Vector2(461.335, 334.76)
+scale = Vector2(3.56, 1)
+zoom = Vector2(0.64, 0.64)
+
+[node name="Door" parent="." instance=ExtResource("7_yngxi")]
+position = Vector2(1124, 159)
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(-53, -12)
+tile_set = SubResource("TileSet_lutqe")
+format = 2
+layer_0/name = "Chão"
+layer_0/modulate = Color(0.55121, 0.635539, 0.558382, 1)
+layer_0/z_index = 1
+layer_1/name = "Fundo"
+layer_1/modulate = Color(0.822932, 0.753851, 0.827851, 1)
+layer_1/z_index = -2
+layer_2/name = "Detalhes"
+layer_2/z_index = -1
+
+[node name="Objective" parent="." instance=ExtResource("6_34053")]
+position = Vector2(-266, 254)
+
+[node name="Saída" parent="." instance=ExtResource("9_b2d5m")]
+position = Vector2(1117, 261)
+
+[node name="Player2" parent="." instance=ExtResource("8_p4cvy")]
+position = Vector2(352, 221)

@@ -2,7 +2,7 @@ extends Node
 class_name GravityEffect
 
 
-const GRAVITY := 600
+const GRAVITY := 750
 const MAX_FALL_SPEED := 1000   
 
 #@export var available_portal_distances := [20.0, 50.0, 85.0, 100.0]
